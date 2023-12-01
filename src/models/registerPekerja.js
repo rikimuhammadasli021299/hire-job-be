@@ -1,15 +1,18 @@
 const Pool = require('../config/db');
 
 const createUserPekerja = async (data) => {
-  const { nama, email, passwordHashed, phone } = data;
+  const { nama, email, passwordHashed, phone, photo, job_desk, domisili, tempat_kerja, deskripsi_singkat } = data;
   return new Promise((resolve, reject) => {
-    Pool.query(`INSERT INTO users_pekerja (nama, email, phone, password) VALUES ('${nama}', '${email}', '${phone}', '${passwordHashed}')`, (err, result) => {
-      if (!err) {
-        return resolve(result);
-      } else {
-        return reject(err);
+    Pool.query(
+      `INSERT INTO users_pekerja (nama, email, phone, password, photo, job_desk, domisili, tempat_kerja, deskripsi_singkat) VALUES ('${nama}', '${email}', '${phone}', '${passwordHashed}', '${photo}', '${job_desk}', '${domisili}', '${tempat_kerja}', '${deskripsi_singkat}')`,
+      (err, result) => {
+        if (!err) {
+          return resolve(result);
+        } else {
+          return reject(err);
+        }
       }
-    });
+    );
   });
 };
 
