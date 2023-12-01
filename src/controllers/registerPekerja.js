@@ -1,4 +1,5 @@
 const bcrypt = require('bcrypt');
+const { v4: uuidv4 } = require('uuid');
 const { createUserPekerja, checkEmailRegisteredPekerja } = require('../models/registerPekerja');
 
 const registerPekerjaController = {
@@ -24,7 +25,7 @@ const registerPekerjaController = {
 
     //   hash password
     let passwordHashed = await bcrypt.hash(password, 10);
-    let data = { nama, email, phone, passwordHashed, photo, job_desk, domisili, tempat_kerja, deskripsi_singkat };
+    let data = { nama, email, phone, passwordHashed, photo, job_desk, domisili, tempat_kerja, deskripsi_singkat, id_user: uuidv4() };
     await createUserPekerja(data);
 
     if (!data) {

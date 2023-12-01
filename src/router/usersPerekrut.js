@@ -5,7 +5,7 @@ const upload = require('../middleware/upload');
 
 const router = express.Router();
 
-router.get('/perekrut/:id', verifyToken, getDetailPerekrutById);
-router.put('/perekrut/:id', verifyToken, upload.single('photo'), putPerekrutById);
+router.get('/perekrut', verifyToken, getDetailPerekrutById);
+router.put('/perekrut', verifyToken, upload.single('photo'), putPerekrutById);
 
 module.exports = router;

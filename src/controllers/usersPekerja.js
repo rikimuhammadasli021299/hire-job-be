@@ -1,4 +1,3 @@
-const bcrypt = require('bcrypt');
 const { selectUserPekerjaById, selectAllPekerja, updatePekerjaById } = require('../models/usersPekerja');
 const cloudinary = require('../config/photo');
 
@@ -22,7 +21,7 @@ const usersPekerjaController = {
   },
 
   getDetailPekerjaById: async (req, res) => {
-    let id_pekerja = req.params.id;
+    let id_pekerja = req.user.id_user;
 
     let data = await selectUserPekerjaById(id_pekerja);
     let result = data.rows[0];
@@ -42,7 +41,7 @@ const usersPekerjaController = {
   },
 
   putPekerjaById: async (req, res) => {
-    let id_pekerja = req.params.id;
+    let id_pekerja = req.user.id_user;
     let { nama, phone, job_desk, domisili, tempat_kerja, deskripsi_singkat } = req.body;
 
     //   Check user

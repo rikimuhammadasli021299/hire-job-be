@@ -1,5 +1,6 @@
 const bcrypt = require('bcrypt');
 const { createUserPerekrut, checkEmailRegisteredPerekrut } = require('../models/registerPerekrut');
+const { v4: uuidv4 } = require('uuid');
 
 const registerPerekrutController = {
   registerPerekrut: async (req, res) => {
@@ -25,7 +26,7 @@ const registerPerekrutController = {
 
     //   hash password
     let passwordHashed = await bcrypt.hash(password, 10);
-    let data = { nama, email, perusahaan, jabatan, phone, passwordHashed, bidang, provinsi, kota, deskripsi_singkat, email_perusahaan, linked_in };
+    let data = { nama, email, perusahaan, jabatan, phone, passwordHashed, bidang, provinsi, kota, deskripsi_singkat, email_perusahaan, linked_in, id_user: uuidv4() };
     await createUserPerekrut(data);
 
     if (!data) {
