@@ -45,8 +45,6 @@ const usersPekerjaController = {
     let id_pekerja = req.params.id;
     let { nama, phone, job_desk, domisili, tempat_kerja, deskripsi_singkat } = req.body;
 
-    console.log(req.body);
-
     //   Check user
     let pekerja = await selectUserPekerjaById(id_pekerja);
 
@@ -59,7 +57,6 @@ const usersPekerjaController = {
     }
 
     let data = pekerja.rows[0];
-    console.log('data dari db', data);
     let newData = {
       id_user: data.id_user,
       nama: nama || data.nama,
@@ -69,8 +66,6 @@ const usersPekerjaController = {
       tempat_kerja: tempat_kerja || data.tempat_kerja,
       deskripsi_singkat: deskripsi_singkat || data.deskripsi_singkat,
     };
-
-    // console.log(newData);
 
     // check photo
     if (!req.file) {
@@ -111,8 +106,6 @@ const usersPekerjaController = {
         return res.status(400).json({ messsage: 'upload photo failed' });
       }
       newData.photo = imageUpload.secure_url;
-
-      // console.log(newData);
 
       let result = await updatePekerjaById(newData);
 
