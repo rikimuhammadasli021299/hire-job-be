@@ -4,7 +4,7 @@ const cloudinary = require('../config/photo');
 const usersPekerjaController = {
   getAllPekerja: async (req, res) => {
     let data = await selectAllPekerja();
-    let result = data.rows[0];
+    let result = data.rows;
 
     if (!result) {
       return res.status(200).json({
@@ -21,7 +21,7 @@ const usersPekerjaController = {
   },
 
   getDetailPekerjaById: async (req, res) => {
-    let id_pekerja = req.user.id_user;
+    let id_pekerja = req.params.id;
 
     let data = await selectUserPekerjaById(id_pekerja);
     let result = data.rows[0];
