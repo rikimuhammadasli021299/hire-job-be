@@ -9,6 +9,7 @@ const loginPerekrut = require('./loginPerekrut');
 const usersPerekrut = require('./usersPerekrut');
 const usersPekerja = require('./usersPekerja');
 const skillPekerja = require('./skillPekerja');
+const chat = require('./chat');
 
 router.use('/register', registerPekerja);
 router.use('/register', registerPerekrut);
@@ -17,5 +18,6 @@ router.use('/login', loginPerekrut);
 router.use('/users', usersPekerja);
 router.use('/users', usersPerekrut);
 router.use('/skill', skillPekerja);
+router.use('/chat', chat);
 
 module.exports = router;
