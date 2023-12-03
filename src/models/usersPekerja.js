@@ -120,6 +120,30 @@ const updatePekerjaById = async (data) => {
   });
 };
 
+const updateOtpByUserPekerjaEmail = async (email, otp) => {
+  return new Promise((resolve, reject) => {
+    Pool.query(`UPDATE users_pekerja SET otp=${otp} WHERE email='${email}'`, (err, result) => {
+      if (!err) {
+        return resolve(result);
+      } else {
+        return reject(err);
+      }
+    });
+  });
+};
+
+const updatePasswordPekerjaByIdPekerja = async (id_pekerja, password) => {
+  return new Promise((resolve, reject) => {
+    Pool.query(`UPDATE users_pekerja SET password='${password}' WHERE id_user='${id_pekerja}'`, (err, result) => {
+      if (!err) {
+        return resolve(result);
+      } else {
+        return reject(err);
+      }
+    });
+  });
+};
+
 module.exports = {
   selectAllPekerja,
   selectUserPekerjaById,
@@ -127,4 +151,6 @@ module.exports = {
   selectUsersPekerjaBySkill,
   countAllUsersPekerja,
   countAllUsersPekerjaBySkill,
+  updateOtpByUserPekerjaEmail,
+  updatePasswordPekerjaByIdPekerja,
 };

@@ -40,4 +40,16 @@ const selectPekerjaByEmail = async (email) => {
   });
 };
 
-module.exports = { createUserPekerja, checkEmailRegisteredPekerja, selectPekerjaByEmail };
+const selectPekerjaByOtp = async (otp) => {
+  return new Promise((resolve, reject) => {
+    Pool.query(`SELECT * FROM users_pekerja WHERE otp='${otp}'`, (err, result) => {
+      if (!err) {
+        return resolve(result);
+      } else {
+        return reject(err);
+      }
+    });
+  });
+};
+
+module.exports = { createUserPekerja, checkEmailRegisteredPekerja, selectPekerjaByEmail, selectPekerjaByOtp };
