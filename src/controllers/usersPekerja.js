@@ -1,9 +1,76 @@
-const { selectUserPekerjaById, selectAllPekerja, updatePekerjaById } = require('../models/usersPekerja');
+const { selectUserPekerjaById, selectAllPekerja, updatePekerjaById, selectUsersPekerjaBySkill, countAllUsersPekerja, countAllUsersPekerjaBySkill } = require('../models/usersPekerja');
 const cloudinary = require('../config/photo');
+const createPaginations = require('../utils/createPaginations');
 
 const usersPekerjaController = {
-  getAllPekerja: async (req, res) => {
-    let data = await selectAllPekerja();
+  getPekerjaBySkill: async (req, res) => {
+    let search = req.query.search;
+    let sort = req.query.sort;
+
+    // paginations
+    let page = parseInt(req.query.page) || 0;
+    let limit = parseInt(req.query.limit) || 5;
+
+    // check query search
+    if (!search) {
+      const getAllPekerja = async (req, res) => {
+        let totalPekerja = await countAllUsersPekerja(sort);
+        let paging = createPaginations(totalPekerja.rows[0].count, page, limit);
+
+        let data = await selectAllPekerja(sort, paging);
+        let result = data.rows;
+
+        if (!result) {
+          return res.status(200).json({
+            code: 200,
+            message: 'Data not found!',
+            data: [],
+          });
+        }
+        res.status(200).json({
+          code: 200,
+          message: 'Success get data!',
+          result,
+          pagination: paging.response,
+        });
+      };
+      return getAllPekerja(req, res);
+    }
+
+    let keyword = search.toLowerCase();
+    let totalPekerjaBySkill = await countAllUsersPekerjaBySkill(keyword, sort);
+    let paging = createPaginations(totalPekerjaBySkill.rows[0].count, page, limit);
+
+    let data = await selectUsersPekerjaBySkill(keyword, sort, paging);
+    let result = data.rows;
+
+    console.log(data);
+    if (!result) {
+      return res.status(200).json({
+        code: 200,
+        message: 'Data not found!',
+        data: [],
+      });
+    }
+    res.status(200).json({
+      code: 200,
+      message: 'Success get data!',
+      result,
+      pagination: paging.response,
+    });
+  },
+
+  getAllPekerja: async function (req, res) {
+    let sort = req.query.sort;
+
+    // paginations
+    let page = parseInt(req.query.page) || 0;
+    let limit = parseInt(req.query.limit) || 5;
+
+    let totalPekerja = await countAllUsersPekerja(sort);
+    let paging = createPaginations(totalPekerja.rows[0].count, page, limit);
+
+    let data = await selectAllPekerja(sort, paging);
     let result = data.rows;
 
     if (!result) {
@@ -17,6 +84,7 @@ const usersPekerjaController = {
       code: 200,
       message: 'Success get data!',
       result,
+      pagination: paging.response,
     });
   },
 
