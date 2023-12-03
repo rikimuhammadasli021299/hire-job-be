@@ -7,7 +7,7 @@ const xss = require('xss-clean');
 
 const Router = require('./src/router');
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT;
 
 const corsOptions = {
   origin: '*',
