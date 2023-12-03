@@ -28,7 +28,33 @@ const updatePerekrutById = async (data) => {
   });
 };
 
+const updateOtpByUserPerekrutEmail = async (email, otp) => {
+  return new Promise((resolve, reject) => {
+    Pool.query(`UPDATE users_perekrut SET otp=${otp} WHERE email='${email}'`, (err, result) => {
+      if (!err) {
+        return resolve(result);
+      } else {
+        return reject(err);
+      }
+    });
+  });
+};
+
+const updatePasswordPerekrutByIdPerekrut = async (id_perekrut, password) => {
+  return new Promise((resolve, reject) => {
+    Pool.query(`UPDATE users_perekrut SET password='${password}' WHERE id_user='${id_perekrut}'`, (err, result) => {
+      if (!err) {
+        return resolve(result);
+      } else {
+        return reject(err);
+      }
+    });
+  });
+};
+
 module.exports = {
   selectUserPerekrutById,
   updatePerekrutById,
+  updateOtpByUserPerekrutEmail,
+  updatePasswordPerekrutByIdPerekrut,
 };

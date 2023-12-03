@@ -37,9 +37,11 @@ const loginPekerjaController = {
     res.status(200).json({
       code: 200,
       message: 'Login success!',
+      id_user: checkEmail.rows[0].id_user,
       nama: checkEmail.rows[0].nama,
       email: checkEmail.rows[0].email,
       phone: checkEmail.rows[0].phone,
+      photo: checkEmail.rows[0].photo,
       token,
     });
   },

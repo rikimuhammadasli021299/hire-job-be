@@ -40,4 +40,16 @@ const selectPerekrutByEmail = async (email) => {
   });
 };
 
-module.exports = { createUserPerekrut, checkEmailRegisteredPerekrut, selectPerekrutByEmail };
+const selectPerekrutByOtp = async (otp) => {
+  return new Promise((resolve, reject) => {
+    Pool.query(`SELECT * FROM users_perekrut WHERE otp='${otp}'`, (err, result) => {
+      if (!err) {
+        return resolve(result);
+      } else {
+        return reject(err);
+      }
+    });
+  });
+};
+
+module.exports = { createUserPerekrut, checkEmailRegisteredPerekrut, selectPerekrutByEmail, selectPerekrutByOtp };

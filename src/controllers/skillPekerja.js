@@ -1,6 +1,5 @@
 const { selectUserPekerjaById } = require('../models/usersPekerja');
 const { insertSkillPekerja, selectSkillPekerjaByIdPekerja, selectSkillByIdSkill, deleteSkill } = require('../models/skillPekerja');
-const cloudinary = require('../config/photo');
 
 const usersPekerjaController = {
   getSkillPekerjaByIdPekerja: async (req, res) => {
