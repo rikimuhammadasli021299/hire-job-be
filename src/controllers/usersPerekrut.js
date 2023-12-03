@@ -7,7 +7,7 @@ const bcrypt = require('bcrypt');
 
 const usersPerekrutController = {
   getDetailPerekrutById: async (req, res) => {
-    let id_perekrut = req.user.id_user;
+    let id_perekrut = req.params.id;
 
     let data = await selectUserPerekrutById(id_perekrut);
     let result = data.rows[0];
