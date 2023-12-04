@@ -1,11 +1,29 @@
 const { selectUserPekerjaById } = require('../models/usersPekerja');
-const { insertSkillPekerja, selectSkillPekerjaByIdPekerja, selectSkillByIdSkill, deleteSkill } = require('../models/skillPekerja');
+const { insertSkillPekerja, selectSkillPekerjaByIdPekerja, selectSkillByIdSkill, deleteSkill, selectAllSkillPekerja } = require('../models/skillPekerja');
 
 const usersPekerjaController = {
   getSkillPekerjaByIdPekerja: async (req, res) => {
     let id_pekerja = req.params.id;
 
     let data = await selectSkillPekerjaByIdPekerja(id_pekerja);
+    let result = data.rows;
+
+    if (!result) {
+      return res.status(200).json({
+        code: 200,
+        message: 'Data not found!',
+        data: [],
+      });
+    }
+    res.status(200).json({
+      code: 200,
+      message: 'Success get data!',
+      data: result,
+    });
+  },
+
+  getAllSkillPekerja: async (req, res) => {
+    let data = await selectAllSkillPekerja();
     let result = data.rows;
 
     if (!result) {

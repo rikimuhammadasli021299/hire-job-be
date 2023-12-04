@@ -24,6 +24,18 @@ const selectSkillPekerjaByIdPekerja = async (id_pekerja) => {
   });
 };
 
+const selectAllSkillPekerja = async () => {
+  return new Promise((resolve, reject) => {
+    Pool.query(`SELECT * FROM skill`, (err, result) => {
+      if (!err) {
+        return resolve(result);
+      } else {
+        return reject(err);
+      }
+    });
+  });
+};
+
 const selectSkillByIdSkill = async (id_skill) => {
   return new Promise((resolve, reject) => {
     Pool.query(`SELECT * FROM skill WHERE id_skill=${id_skill}`, (err, result) => {
@@ -48,4 +60,4 @@ const deleteSkill = async (id_user_pekerja, id_skill) => {
   });
 };
 
-module.exports = { insertSkillPekerja, selectSkillPekerjaByIdPekerja, selectSkillByIdSkill, deleteSkill };
+module.exports = { insertSkillPekerja, selectSkillPekerjaByIdPekerja, selectSkillByIdSkill, deleteSkill, selectAllSkillPekerja };
