@@ -3,7 +3,7 @@ const { insertSkillPekerja, selectSkillPekerjaByIdPekerja, selectSkillByIdSkill,
 
 const usersPekerjaController = {
   getSkillPekerjaByIdPekerja: async (req, res) => {
-    let id_pekerja = req.user.id_user;
+    let id_pekerja = req.params.id;
 
     let data = await selectSkillPekerjaByIdPekerja(id_pekerja);
     let result = data.rows;
@@ -18,7 +18,6 @@ const usersPekerjaController = {
     res.status(200).json({
       code: 200,
       message: 'Success get data!',
-      id_pekerja: result[0].id_user_pekerja,
       data: result,
     });
   },

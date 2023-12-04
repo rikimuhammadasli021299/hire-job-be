@@ -4,7 +4,7 @@ const verifyToken = require('../middleware/auth');
 
 const router = express.Router();
 
-router.get('/pekerja', verifyToken, getSkillPekerjaByIdPekerja);
+router.get('/pekerja/:id', verifyToken, getSkillPekerjaByIdPekerja);
 router.post('/pekerja', verifyToken, postSkillPekerjaByIdPekerja);
 router.delete('/pekerja/:id', verifyToken, deleteSkillByIdSkillAndIdPekerja);
 
