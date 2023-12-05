@@ -7,7 +7,7 @@ const getMyExperience = async (req, res) => {
   if (dataExperience.rows.length != 0) {
     res.status(200).json({ message: 'success', data: dataExperience.rows });
   } else {
-    return res.status(404).json({ message: 'data not found!' });
+    return res.status(200).json({ message: 'data not found!', data: [] });
   }
 };
 

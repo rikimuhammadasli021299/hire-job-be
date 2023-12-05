@@ -11,8 +11,9 @@ const getPorto = async (req, res) => {
       data: dataPorto.rows,
     });
   } else {
-    return res.status(404).json({
+    return res.status(200).json({
       message: 'data not found',
+      data: [],
     });
   }
 };
