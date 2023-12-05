@@ -11,6 +11,7 @@ const usersPekerja = require('./usersPekerja');
 const skillPekerja = require('./skillPekerja');
 const portfolio = require('./portfolioRouter')
 const chat = require('./chat');
+const experience = require('./experienceRoute')
 
 router.use('/register', registerPekerja);
 router.use('/register', registerPerekrut);
@@ -21,5 +22,6 @@ router.use('/users', usersPerekrut);
 router.use('/skill', skillPekerja);
 router.use('/portfolio', portfolio)
 router.use('/chat', chat);
+router.use('/experience', experience)
 
 module.exports = router;
