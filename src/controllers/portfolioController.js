@@ -3,7 +3,7 @@ const cloudinary = (require = require('../config/photo'));
 
 // const {StatusCodes} = require("http-status-codes")
 const getPorto = async (req, res) => {
-  const id = req.user.id_user;
+  const id = req.params.id;
   const dataPorto = await getPortfolio(id);
   if (dataPorto.rows.length != 0) {
     res.status(200).json({

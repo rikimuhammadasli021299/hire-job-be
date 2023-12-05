@@ -4,7 +4,7 @@ const verifyToken = require('../middleware/auth');
 const upload = require('../middleware/upload');
 const { getMyExperience, postMyExperience, putMyExperience, getMyExperienceById, deleteMyExperienceById } = require('../controllers/experienceController');
 
-router.get('/pekerja', verifyToken, getMyExperience);
+router.get('/all/:id', verifyToken, getMyExperience);
 router.post('/pekerja', verifyToken, upload.single('photo'), postMyExperience);
 router.put('/pekerja/:id', verifyToken, upload.single('photo'), putMyExperience);
 router.get('/pekerja/:id', verifyToken, getMyExperienceById);

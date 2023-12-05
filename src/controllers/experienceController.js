@@ -2,7 +2,7 @@ const { getExperience, postExperience, putExperience, getExperienceById, deleteE
 const cloudinary = require('../config/photo');
 
 const getMyExperience = async (req, res) => {
-  const id = req.user.id_user;
+  const id = req.params.id;
   const dataExperience = await getExperience(id);
   if (dataExperience.rows.length != 0) {
     res.status(200).json({ message: 'success', data: dataExperience.rows });
