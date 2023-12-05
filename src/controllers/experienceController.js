@@ -1,62 +1,60 @@
-const {getExperience, postExperience, putExperience,getExperienceById, getExperienceByIdForPerekrut, deleteExperienceById} = require("../models/experienceModel")
-const cloudinary = require("../config/photo")
+const { getExperience, postExperience, putExperience, getExperienceById, deleteExperienceById } = require('../models/experienceModel');
+const cloudinary = require('../config/photo');
 
 const getMyExperience = async (req, res) => {
-    const id = req.user.id_user;
-    const dataExperience = await getExperience(id);
-    if (dataExperience.rows.length != 0) {
-      res.status(200).json({ message: "success", data: dataExperience.rows });
-    } else {
-      return res.status(404).json({ message: "data not found!" });
-    }
-  };
+  const id = req.user.id_user;
+  const dataExperience = await getExperience(id);
+  if (dataExperience.rows.length != 0) {
+    res.status(200).json({ message: 'success', data: dataExperience.rows });
+  } else {
+    return res.status(404).json({ message: 'data not found!' });
+  }
+};
 
-  const postMyExperience = async (req, res) => {
-    let { position, company_name, from_month, to_month, description } = req.body;
-    let id_user = req.user.id_user;
-    console.log(position, company_name, from_month, to_month, description)
-    
+const postMyExperience = async (req, res) => {
+  let { position, company_name, from_month, to_month, description } = req.body;
+  let id_user = req.user.id_user;
+  console.log(position, company_name, from_month, to_month, description);
 
-    if (!req.file) {
-      return res.status(400).json({ messsage: 'photo is required and must be image file' });
-    }
+  if (!req.file) {
+    return res.status(400).json({ messsage: 'photo is required and must be image file' });
+  }
 
-    if (!req.isFileValid) {
-      return res.status(400).json({ messsage: isFileValidMessage });
-    }
+  if (!req.isFileValid) {
+    return res.status(400).json({ messsage: isFileValidMessage });
+  }
 
-    if (!position || !company_name || !from_month || !to_month || !description) {
-      return res.status(400).json({
-        code: 400,
-        message: 'position, company_name, from_month, to_month, description is required',
-      });
-    }
-
-    const imageUpload = await cloudinary.uploader.upload(req.file.path, {
-      folder: 'hire-job',
+  if (!position || !company_name || !from_month || !to_month || !description) {
+    return res.status(400).json({
+      code: 400,
+      message: 'position, company_name, from_month, to_month, description is required',
     });
+  }
 
-    if (!imageUpload) {
-      return res.status(400).json({ messsage: 'upload photo failed' });
-    }
+  const imageUpload = await cloudinary.uploader.upload(req.file.path, {
+    folder: 'hire-job',
+  });
 
+  if (!imageUpload) {
+    return res.status(400).json({ messsage: 'upload photo failed' });
+  }
 
-    let data = { photo: imageUpload.secure_url, position, company_name, from_month, to_month, description};
-    let result = await postExperience(data, id_user);
+  let data = { photo: imageUpload.secure_url, position, company_name, from_month, to_month, description };
+  let result = await postExperience(data, id_user);
 
-    if (!result) {
-      return res.status(404).json({
-        code: 404,
-        message: 'Failed input data!',
-      });
-    }
-
-    res.status(200).json({
-      code: 200,
-      message: 'Success input data!',
-      data,
+  if (!result) {
+    return res.status(404).json({
+      code: 404,
+      message: 'Failed input data!',
     });
-} 
+  }
+
+  res.status(200).json({
+    code: 200,
+    message: 'Success input data!',
+    data,
+  });
+};
 
 const getMyExperienceById = async (req, res) => {
   const id = req.params.id;
@@ -73,10 +71,9 @@ const getMyExperienceById = async (req, res) => {
   res.status(200).json({
     code: 200,
     message: 'Success get data by id!',
-    data: result
+    data: result,
   });
-}
-
+};
 
 const putMyExperience = async (req, res) => {
   let id = req.params.id;
@@ -94,21 +91,21 @@ const putMyExperience = async (req, res) => {
   }
 
   let data = experience_data.rows[0];
-  
+
   let newData = {
     id: data.id,
     position: position || data.position,
     company_name: company_name || data.company_name,
     from_month: from_month || data.from_month,
     to_month: to_month || data.to_month,
-    description: description || data.description
+    description: description || data.description,
   };
 
   // check photo
   if (!req.file) {
     if (req.isFileValid === undefined || req.isFileValid) {
       newData.photo = data.photo;
-      let result = await putExperience(newData,id);
+      let result = await putExperience(newData, id);
 
       if (!result) {
         return res.status(404).json({
@@ -144,7 +141,7 @@ const putMyExperience = async (req, res) => {
     }
     newData.photo = imageUpload.secure_url;
 
-    let result = await putExperience(newData,id);
+    let result = await putExperience(newData, id);
 
     if (!result) {
       return res.status(404).json({
@@ -160,30 +157,30 @@ const putMyExperience = async (req, res) => {
   }
 };
 
+const deleteMyExperienceById = async (req, res) => {
+  const id = req.params.id;
+  let data = await getExperienceById(id);
+  let result = data.rows[0];
 
+  if (!result) {
+    return res.status(200).json({
+      code: 200,
+      message: 'Data not found!',
+      data: [],
+    });
+  }
 
-
-  const getMyExperienceByIdForPerekrut = async (req, res) => {
-    const { id } = req.params;
-    const dataExperience = await getExperienceByIdForPerekrut(id);
-    if (dataExperience.rows.length != 0) {
-      res.status(200).json({ msg: "success", data: dataExperience.rows });
-    } else {
-      return res.status(404).json({ msg: "data not found!" });
-    }
-  };
-
-  const deleteMyExperienceById = async (req, res) => {
-    const { id } = req.params;
-    await deleteExperienceById(id);
-    res.status(201).json({ msg: "success" });
-  };
+  await deleteExperienceById(id);
+  res.status(200).json({
+    code: 200,
+    message: 'Success delete data!',
+  });
+};
 
 module.exports = {
-    getMyExperience,
-    postMyExperience,
-    putMyExperience,
-    getMyExperienceById,
-    getMyExperienceByIdForPerekrut,
-    deleteMyExperienceById
-}
+  getMyExperience,
+  postMyExperience,
+  putMyExperience,
+  getMyExperienceById,
+  deleteMyExperienceById,
+};
