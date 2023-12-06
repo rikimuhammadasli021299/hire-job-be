@@ -37,10 +37,10 @@ const selectChatByIdPerekrut = async (id_perekrut) => {
   });
 };
 
-const selectDetailChatByIdPengirim = async (id_pekerja, id_perekrut) => {
+const selectDetailChatByIdPengirim = async (id_pekerja, id_perekrut, posisi) => {
   return new Promise((resolve, reject) => {
     Pool.query(
-      `SELECT id_message, id_pengirim, message_detail, posisi, id_pekerja, id_perekrut, created_at, updated_at, users_pekerja.nama AS nama_pekerja, users_pekerja.photo AS photo_pekerja, users_perekrut.nama_perusahaan, users_perekrut.photo AS photo_perusahaan FROM messages JOIN users_pekerja ON messages.id_pekerja=users_pekerja.id_user JOIN users_perekrut ON messages.id_perekrut=users_perekrut.id_user WHERE id_pengirim='${id_perekrut}' OR id_pengirim='${id_pekerja}' ORDER BY messages.created_at`,
+      `SELECT id_message, id_pengirim, message_detail, posisi, id_pekerja, id_perekrut, created_at, updated_at, users_pekerja.nama AS nama_pekerja, users_pekerja.photo AS photo_pekerja, users_perekrut.nama_perusahaan, users_perekrut.photo AS photo_perusahaan FROM messages JOIN users_pekerja ON messages.id_pekerja=users_pekerja.id_user JOIN users_perekrut ON messages.id_perekrut=users_perekrut.id_user WHERE posisi='${posisi}' AND id_perekrut='${id_perekrut}' AND id_pekerja='${id_pekerja}' ORDER BY messages.created_at`,
       (err, result) => {
         if (!err) {
           return resolve(result);

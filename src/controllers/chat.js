@@ -7,10 +7,10 @@ const chatController = {
     let id_pengirim = req.user.id_user;
     let { id_perekrut, id_pekerja, posisi, message_detail } = req.body;
 
-    if (!id_perekrut || !id_pekerja || !message_detail) {
+    if (!id_perekrut || !id_pekerja || !message_detail || !posisi) {
       return res.status(400).json({
         code: 400,
-        message: 'id_perekrut, id_pekerja and message detail is required!',
+        message: 'id_perekrut, id_pekerja, posisi and message detail is required!',
       });
     }
 
@@ -110,9 +110,9 @@ const chatController = {
   },
 
   getDetailChat: async (req, res) => {
-    let { id_pekerja, id_perekrut } = req.body;
+    let { id_pekerja, id_perekrut, posisi } = req.body;
 
-    let data = await selectDetailChatByIdPengirim(id_pekerja, id_perekrut);
+    let data = await selectDetailChatByIdPengirim(id_pekerja, id_perekrut, posisi);
     if (data.rows.length === 0) {
       return res.status(200).json({
         code: 200,
