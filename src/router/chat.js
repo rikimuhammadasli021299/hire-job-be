@@ -7,6 +7,6 @@ const router = express.Router();
 router.post('/', verifyToken, postChat);
 router.get('/list-pekerja', verifyToken, getListChatByIdPekerja);
 router.get('/list-perekrut', verifyToken, getListChatByIdPerekrut);
-router.get('/detail', verifyToken, getDetailChat);
+router.post('/detail', verifyToken, getDetailChat);
 
 module.exports = router;
