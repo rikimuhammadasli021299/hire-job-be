@@ -65,20 +65,20 @@ npm install
 
 ```sh
 
-PORT=4000 // or your port
-DB_HOST=147.139.210.135 // or your database host
-DB_USER=rmn // or your database username
-DB_PASSWORD=r12893619 // or your database password
-DB_NAME=rmn02 // or your database name
-DB_PORT=5432 // or your database port
-JWT_SECRET=frrmn01 // or your jwt secret
-PHOTO_NAME=dzetef1x0 // or your cloudinary name
-PHOTO_KEY=157453982432354 // or your cloudinary key
-PHOTO_SECRET=F7T7TP1m32y5hxBH8-fIRSz4FYo // or your cloudinary secret
-MAIL_SERVICE=gmail // or your service mail
-MAIL_USER=rikimuhammadasli@gmail.com // or your user mail
-MAIL_PASS=jkzdsmpelwyjqxwz // or your password mail
-MAIL_FROM=mail@hirejob.com
+PORT= // or your port
+DB_HOST= // or your database host
+DB_USER= // or your database username
+DB_PASSWORD= // or your database password
+DB_NAME= // or your database name
+DB_PORT= // or your database port
+JWT_SECRET= // or your jwt secret
+PHOTO_NAME= // or your cloudinary name
+PHOTO_KEY= // or your cloudinary key
+PHOTO_SECRET= // or your cloudinary secret
+MAIL_SERVICE= // or your service mail
+MAIL_USER= // or your user mail
+MAIL_PASS= // or your password mail
+MAIL_FROM=
 
 ```
 
